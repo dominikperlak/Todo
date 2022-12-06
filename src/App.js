@@ -83,7 +83,7 @@ function App() {
                 </button>
               </li>
 
-              {showEdit == item.id ? (
+              {showEdit === item.id ? (
                 <div>
                   <input
                     type="text"

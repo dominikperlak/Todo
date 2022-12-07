@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { List } from "./List";
 
 function App() {
-
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState([]);
 
@@ -12,11 +15,10 @@ function App() {
 
 
   function addItem() {
-
-
     if (!newItem) {
-      alert("Press enter an item.");
-      return;
+      toast.error('Missing item')
+
+      return
     }
 
     const item = {
@@ -46,7 +48,6 @@ function App() {
       id: currentItem.id,
       value: newText,
     };
-
     deleteItem(id);
 
     setItems((oldList) => [...oldList, newItem]);
@@ -57,6 +58,9 @@ function App() {
 
   return (
     <div className="app">
+      <ToastContainer 
+        position="bottom-center"
+      />
 
       <h1>My Todo List</h1>
 
@@ -69,36 +73,7 @@ function App() {
 
       <button onClick={() => addItem()}>Add</button>
 
-      <ul>
-        {items.map((item) => {
-          return (
-            <div>
-              <li key={item.id} onClick={() => setShowEdit(item.id)}>
-                {item.value}
-                <button
-                  className="delete-button"
-                  onClick={() => deleteItem(item.id)}
-                >
-                  ❌
-                </button>
-              </li>
-
-              {showEdit === item.id ? (
-                <div>
-                  <input
-                    type="text"
-                    value={updatedText}
-                    onChange={(e) => setUpdatedText(e.target.value)}
-                  />
-                  <button onClick={() => editItem(item.id, updatedText)}>
-                    Update
-                  </button>
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-      </ul>
+      <List items={items} />
     </div>
   );
 }

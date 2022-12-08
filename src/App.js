@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { List } from "./List";
 
 function App() {
@@ -41,17 +42,13 @@ function App() {
   function editItem(id, newText) {
 
     const currentItem = items.filter((item) => item.id === id);
-
- 
-
-
-
+  
 
     const newItem = {
       id: currentItem.id,
       value: newText,
     };
-    deleteItem();
+    deleteItem(id);
 
     setItems((oldList) => [...oldList, newItem]);
     setUpdatedText("");
@@ -76,7 +73,7 @@ function App() {
 
       <button onClick={() => addItem()}>Add</button>
 
-      <List items={items} />
+      <List items={items} deleteItem={deleteItem} />
     </div>
   );
 }

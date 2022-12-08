@@ -1,15 +1,13 @@
-
-
-export const Item = (props) => (
-    <div>
-      <li key={props.id}>
-                {props.value}
-                <button
-                  className="delete-button"
-                  onClick={() => null}
-                >
-                  ❌
-                </button>
-         </li>
-    </div>
+export const Item = ({id, value, deleteItem}) => (
+  <div>
+    <li key={id}>
+              {value}
+              <button
+                className="delete-button"
+                onClick={() => deleteItem(id)}
+              >
+                ❌
+              </button>
+       </li>
+  </div>
 )

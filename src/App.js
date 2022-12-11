@@ -1,59 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import { List } from "./List";
+
+import getAll from './api/list';
+import addTask from './api/add';
+import deleteTask from './api/remove';
+import updateTask from './api/update';
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function App() {
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false); 
 
-  const [showEdit, setShowEdit] = useState(-1);
-  const [updatedText, setUpdatedText] = useState("");
+  const getTasks = () => getAll()
+    .then(items => {
+      setItems(items)
+      setLoading(false)
+    })
 
-
-
-  function addItem() {
+  const addItem = () => {
     if (!newItem) {
-      toast.error('Missing item')
+      toast.error('Missing task')
 
       return
     }
 
-    const item = {
-      id: Math.floor(Math.random() * 1000),
-      value: newItem,
-    };
+    setLoading(true)
 
-
-    setItems((oldList) => [...oldList, item]);
-
-    setNewItem("");
+    return addTask(newItem)
+      .then(() => {
+        getTasks()
+        setNewItem("")
+      })
   }
 
-
-  function deleteItem(id) {
-    const newArray = items.filter((item) => item.id !== id);
-    setItems(newArray);
+  const deleteItem = (id) => {
+    setLoading(true);
+    deleteTask(id)
+    .then(getTasks)
   }
 
-
-  function editItem(id, newText) {
-
-    const currentItem = items.filter((item) => item.id === id);
-  
-
-    const newItem = {
-      id: currentItem.id,
-      value: newText,
-    };
-    deleteItem(id);
-
-    setItems((oldList) => [...oldList, newItem]);
-    setUpdatedText("");
-    setShowEdit(-1);
+  const editItem = (id, text) => {
+    updateTask(id, text)
+      .then(getTasks);
   }
+
+  useEffect(() => {
+    setLoading(true)
+    getTasks()
+  }, []);
 
 
   return (
@@ -73,7 +75,11 @@ function App() {
 
       <button onClick={() => addItem()}>Add</button>
 
-      <List items={items} deleteItem={deleteItem} />
+      {loading ? (
+        <Spin indicator={antIcon} />
+      ) : (
+        <List items={items} deleteItem={deleteItem} changeItem={editItem}/>     
+         )}
     </div>
   );
 }

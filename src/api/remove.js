@@ -1,17 +1,12 @@
-export default async (req, res) => {
-  if (!req.query.todo) {
-    return res.status(400).send("todo parameter required.");
-  }
-  let todo = encodeURI(req.query.todo);
+export default async (id) => {
+    const url = `https://api.todoist.com/rest/v2/tasks/${id}`
 
-  const token = "REPLACE_YOUR_TOKEN";
-  const url =
-    "https://REPLACE_YOUR_ENDPOINT/lrem/todo/1/" + todo + "?_token=" + token;
-
-  return fetch(url)
-    .then((r) => r.json())
-    .then((data) => {
-      let result = JSON.stringify(data.result);
-      return res.status(200).json(result);
-    });
-};
+    return fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer c010ef70fd11451beab40a30a8f16bd3b0744cf9',
+        'X-Request-Id': '7789dc52-72ae-4d64-a5f5-80a99f0c4c4d'
+      }
+    })
+  };

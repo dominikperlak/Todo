@@ -1,7 +1,7 @@
-const url = 'https://api.todoist.com/rest/v2/tasks'
+export default async (id, task) => {
+    const url = `https://api.todoist.com/rest/v2/tasks/${id}`
 
-export default async (task) => {
-    const response = await fetch(url, {
+    return fetch(url, {
       method: 'POST',
       body: JSON.stringify({
         content: task,
@@ -12,6 +12,4 @@ export default async (task) => {
         'X-Request-Id': '7789dc52-72ae-4d64-a5f5-80a99f0c4c4d'
       }
     })
-
-    return response.json()
   };

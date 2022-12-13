@@ -11,10 +11,13 @@ import getAll from './api/list';
 import addTask from './api/add';
 import deleteTask from './api/remove';
 import updateTask from './api/update';
+import { Typography } from 'antd';
+
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-
+const { Title } = Typography;
 function App() {
+
   const [newItem, setNewItem] = useState("");
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false); 
@@ -64,7 +67,7 @@ function App() {
         position="bottom-center"
       />
 
-      <h1>My Todo List</h1>
+<Title> My Todo list</Title>
 
       <input
         type="text"

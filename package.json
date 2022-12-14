@@ -1,6 +1,7 @@
 {
   "name": "todo-list",
   "version": "0.1.0",
+  "homepage": "https://dominikperlak.github.io/react-gh-pages",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
@@ -16,7 +17,10 @@
     "use-debounce": "^9.0.2",
     "web-vitals": "^2.1.4"
   },
+  
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -39,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 const url = 'https://api.todoist.com/rest/v2/tasks'
 
 export default async (task) => {
@@ -8,8 +9,8 @@ export default async (task) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer c010ef70fd11451beab40a30a8f16bd3b0744cf9',
-        'X-Request-Id': '7789dc52-72ae-4d64-a5f5-80a99f0c4c4d'
+        Authorization: 'Bearer 85eaa8e09a95ed4651de5c90ca7ee667b6f3b229',
+        'X-Request-Id': uuidv4()
       }
     })
 

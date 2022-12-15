@@ -1,7 +1,7 @@
 {
   "name": "todo-list",
   "version": "0.1.0",
-  "homepage": "https://dominikperlak.github.io",
+  "homepage": "https://dominikperlak.github.io/TodoList",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
